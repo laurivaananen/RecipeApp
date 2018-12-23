@@ -22,9 +22,12 @@ class Recipe extends Component {
         const { id, title, description, category, ingredients } = this.props.data;
         const { expanded } = this.state;
         return(
-            <li key={ id } className={`recipe ${expanded ? 'is-expanded' : ''}`} onClick={(e) => this.handleToggle(e)} >
-                <p>{ title }</p>
-                <p>{ category }</p>
+            <li key={ id } className={`recipe ${expanded ? 'is-expanded' : ''}`}>
+                <div className='recipe-header' onClick={(e) => this.handleToggle(e)} >
+                    <p>{ title }</p>
+                    <p>{ category }</p>
+                </div>
+                
                 <div className="body">
                     <p className="body">{ description }</p>
                     <div className="ingredients">
@@ -35,7 +38,7 @@ class Recipe extends Component {
                             )}
                         </ul>
                     </div>
-
+                    <button>Delete</button>
                 </div>
             </li>
         );

@@ -5,33 +5,47 @@
 
 ul {
     list-style: none;
-
+    padding: 0;
 }
 
 li {
-    margin: 12px 0;
+    /* margin: 12px 0; */
 }
 
 .recipe {
     margin: 12px 0;
-    padding: 12px 0;
     border: 1px solid #ddd;
     border-radius: 6px;
-    cursor: pointer;
     /* background-color: #ddd; */
+}
+
+.recipe-header p {
+    display: inline-block;
+}
+
+.recipe-header {
+    cursor: pointer;
+    margin: 0 12px;
+}
+
+.is-expanded .recipe-header {
+    border-bottom: 1px solid #ddd;
 }
 
 .recipe:hover {
     border: 1px solid rgb(111, 169, 218);
 }
 
+div.ingredients ul {
+    padding-left: 12px;
+}
+
 div.ingredients ul li {
     margin: 6px 12px 6px 0;
-    /* padding: 6px 0; */
 }
 
 div.body {
-    margin-left: 24px;
+    margin-left: 12px;
     display: none;
 }
 
@@ -41,4 +55,8 @@ div.body {
 
 .form input, select {
     margin: 12px 0;
+}
+
+.ingredient-field input {
+    display: inline-block;
 }

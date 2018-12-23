@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './Recipe.css';
 
 class AddForm extends Component {
@@ -6,53 +7,38 @@ class AddForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            categories: [],
+            title: '',
             description: '',
             category: '',
-            ingredients: [
-                {
-                    name: '',
-                },
-            ]
+            ingredients_write: ['']
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.addIngredient = this.addIngredient.bind(this);
-        this.handleIngredient = this.handleIngredient.bind(this);
-        this.deleteIngredient = this.deleteIngredient.bind(this);
     }
 
     handleIngredientNameChange = (idx) => (evt) => {
-        let ingredients = this.state.ingredients;
-        if ( ingredients.length - 1 === idx ) {
-            ingredients = this.state.ingredients.concat([{ name: '' }]);
+        let ingredients_write = this.state.ingredients_write;
+        if ( ingredients_write.length - 1 === idx ) {
+            ingredients_write = this.state.ingredients_write.concat(['']);
         }
 
-        const newIngredients = ingredients.map((ingredient, sidx) => {
-            if (idx !== sidx) return ingredient;
-            return { ...ingredient, name: evt.target.value };
+        const newingredients_write = ingredients_write.map((ingredient, sidx) => {
+            if (idx !== sidx) {
+                return ingredient;
+            }
+            return evt.target.value;
         });
     
-        this.setState({ ingredients: newIngredients });
-    }
-
-    // handleSubmit = (evt) => {
-    //     const { name, ingredients } = this.state;
-    //     alert(`Incorporated: ${name} with ${ingredients.length} ingredients`);
-    // }
-    
-    handleAddIngredient() {
-        this.setState({
-            ingredients: this.state.ingredients.concat([{ name: '' }])
-        });
+        this.setState({ ingredients_write: newingredients_write });
     }
 
     handleRemoval = (idx) => () => {
-        if ( this.state.ingredients.length -1 != idx ) {
-            if ( this.state.ingredients[idx].name === '' ){
+        if ( this.state.ingredients_write.length -1 !== idx ) {
+            if ( this.state.ingredients_write[idx].name === '' ){
                 this.setState({
-                    ingredients: this.state.ingredients.filter((s, sidx) => idx !== sidx)
+                    ingredients_write: this.state.ingredients_write.filter((s, sidx) => idx !== sidx)
                 });
             }
         }
@@ -60,7 +46,7 @@ class AddForm extends Component {
 
     handleRemoveIngredient = (idx) => () => {
         this.setState({
-            ingredients: this.state.ingredients.filter((s, sidx) => idx !== sidx)
+            ingredients_write: this.state.ingredients_write.filter((s, sidx) => idx !== sidx)
         });
     }
     
@@ -77,56 +63,23 @@ class AddForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        const { name, description, category, ingredients } = this.state;
+        const { title, description, category } = this.state;
 
-        console.log({ name, description, category, ingredients });
+        const ingredients_write = this.state.ingredients_write.slice(0, this.state.ingredients_write.length - 1);
 
-        // axios.post('/', { fname, lname, email })
-        //   .then((result) => {
-        //   });
+        axios.post('http://localhost:8000/recipes/', { title, category, description, ingredients_write });
     }
 
-    handleIngredient(event) {
-        if (event.key === 'Enter') {
-            console.log(this.state.ingredients);
-            const nextIncrement = this.state.increment + 1;
-            const ingredients = this.state.ingredients.concat([{id: nextIncrement, name: ''}]);
-            // ingredients[nextIncrement] = {id: nextIncrement, name: ''};
-            
-            this.setState({
-                increment: nextIncrement,
-                ingredients: ingredients
+    componentDidMount() {
+        axios.get(`http://localhost:8000/categories/`)
+            .then(res => {
+                const categories = res.data;
+                const default_category = categories[0].id
+                this.setState({
+                    categories: categories,
+                    category: default_category
+                });
             });
-            event.preventDefault();
-        }
-    }
-
-    addIngredient(event) {
-        const ingredients = [...this.state.ingredients];
-
-        const obj = ingredients.pop(event.target.id);
-
-        obj.name = event.target.value;
-
-        ingredients.splice(event.target.id, 0, obj);
-
-        this.setState({
-            ingredients: ingredients
-        });
-    }
-
-    deleteIngredient(event) {
-        // console.log(Number(event.target));
-        const id = Number(event.target.name);
-        const ingredient = this.state.ingredients[event.target.name];
-        const ingredients = [...this.state.ingredients];
-
-        // const index = ingredients.
-        const aa = ingredients.filter(x => x.id !== id);
-        console.log(aa);
-        this.setState({
-            ingredients: aa
-        });
     }
 
 
@@ -135,7 +88,7 @@ class AddForm extends Component {
             <div className='form'>
                 <form onSubmit={this.handleSubmit}>
                     <label>Name:
-                        <input type='text' name='name' value={this.state.name} onChange={this.handleChange} />
+                        <input type='text' name='title' value={this.state.title} onChange={this.handleChange} />
                     </label>
                     <br/>
                     <label>Description:
@@ -144,27 +97,39 @@ class AddForm extends Component {
                     <br/>
                     <label>Category:
                         <select name='category' value={this.state.category} onChange={this.handleChange} >
-                            <option value='Breakfast'>Breakfast</option>
-                            <option value='Lunch'>Lunch</option>
-                            <option value='Dinner'>Dinner</option>
+                            { this.state.categories.map( ({ name, id }) => (
+                                <option key={ id } value={ id }>{ name }</option>
+                            ))}
                         </select>
                     </label>
                     <br/>
-                        <label htmlFor={this.state.increment}>Ingredients:</label>
-                        {this.state.ingredients.map((ingredient, idx) => (
-                            <div className="ingredient">
+                        {this.state.ingredients_write.map((ingredient, idx) => (
                                 <input
-                                    // autoFocus
                                     type="text"
                                     placeholder={`ingredient #${idx + 1} name`}
-                                    value={ingredient.name}
+                                    value={ingredient}
                                     onBlur={this.handleRemoval(idx)}
                                     onChange={this.handleIngredientNameChange(idx)}
                                 />
-                                <button type="button" onClick={this.handleRemoveIngredient(idx)} className="small">-</button>
-                            </div>
-                            ))}
-                            {/* <button type="button" onClick={this.handleAddIngredient} className="small">Add ingredient</button> */}
+                            ))
+                            .map((field, idx) => {
+                                if (this.state.ingredients_write.length > idx + 1) {
+                                    
+                                    return (
+                                        <div className="ingredient-field" >
+                                            {field}
+                                            <button type="button" onClick={this.handleRemoveIngredient(idx)} className="small">-</button>
+                                        </div>
+                                    )
+                                } else {
+                                    return (
+                                        <div className="ingredient-field" >
+                                            {field}
+                                        </div>
+                                    )
+                                }
+                            })
+                            }
                     <br/>
                     <input type='submit' value='submit'></input>
                 </form>
