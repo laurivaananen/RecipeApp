@@ -16,9 +16,17 @@ class CategoryListSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class IngredientListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = ('id', 'name')
+
+
 class RecipeListSerializer(serializers.ModelSerializer):
     category = serializers.StringRelatedField()
-    ingredients = serializers.StringRelatedField(many=True)
+    # category = CategoryListSerializer()
+    # ingredients = serializers.StringRelatedField(many=True)
+    ingredients = IngredientListSerializer(many=True)
     
     class Meta:
         model = Recipe
@@ -80,6 +88,7 @@ class RecipeDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = '__all__'
+
 
 class IngredientSerializer(serializers.ModelSerializer):
     recipe = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all())
