@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './Recipe.css';
 
 class AddForm extends Component {
 
@@ -85,23 +84,26 @@ class AddForm extends Component {
 
     render() {
         return(
-            <div className='form'>
+            <div >
                 <form onSubmit={this.handleSubmit}>
-                    <label>Name:
-                        <input type='text' name='title' value={this.state.title} onChange={this.handleChange} />
-                    </label>
-                    <br/>
-                    <label>Description:
-                        <input type='text' name='description' value={this.state.description} onChange={this.handleChange} />
-                    </label>
-                    <br/>
-                    <label>Category:
-                        <select name='category' value={this.state.category} onChange={this.handleChange} >
-                            { this.state.categories.map( ({ name, id }) => (
-                                <option key={ id } value={ id }>{ name }</option>
-                            ))}
-                        </select>
-                    </label>
+                    <div  >
+                        <label for="recipe_title">Title</label>
+                        <input id="recipe_title" type='text' name='title' value={this.state.title} onChange={this.handleChange} />
+                    </div>
+                    <div >
+                        <label for="recipe_description">Description</label>
+                        <textarea id="recipe_description" type='text' name='description' value={this.state.description} onChange={this.handleChange} />
+                    </div>
+                    <div className='row'>
+                        <div className='input-field col s6'>
+                            <select name='category' value={this.state.category} onChange={this.handleChange} >
+                                { this.state.categories.map( ({ name, id }) => (
+                                    <option key={ id } value={ id }>{ name }</option>
+                                ))}
+                            </select>
+                            <label>Category</label>
+                        </div>
+                    </div>
                     <br/>
                         {this.state.ingredients_write.map((ingredient, idx) => (
                                 <input
