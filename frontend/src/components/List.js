@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Recipe from './Recipe';
+import './List.css';
 
 class List extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class List extends Component {
 
     render() {
         return (
-            <div className="List">
+            <div className="recipe-list">
                 <ul>
                     {this.state.recipes.map(recipe =>
                         <Recipe key={ recipe.id } data={recipe} />

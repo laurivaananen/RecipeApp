@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import List from './components/List';
 import AddForm from './components/AddForm';
+import './App.css';
 
 class App extends Component {
+
     render() {
         return (
-            <div >
-                <div >
-                    
-                    <AddForm />
-                    <List/>
-                </div>
-            </div>
+            <main>
+                <AddForm />
+                <List/>
+            </main>
+            
         );
     }
 }

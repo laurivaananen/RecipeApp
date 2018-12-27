@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './Recipe.css';
+import './Recipe.css';
 
 class Recipe extends Component {
 
@@ -22,14 +22,15 @@ class Recipe extends Component {
         const { id, title, description, category, ingredients } = this.props.data;
         const { expanded } = this.state;
         return(
-            <li key={ id } className={`recipe ${expanded ? 'is-expanded' : ''}`}>
+            <li key={ id } className={`recipe-item ${expanded ? 'is-expanded' : ''}`}>
                 <div className='recipe-header' onClick={(e) => this.handleToggle(e)} >
-                    <p>{ title }</p>
-                    <p>{ category }</p>
+                    <p className='recipe-title' >{ title }</p>
+                    <p className='recipe-category' >{ category }</p>
                 </div>
                 
                 <div className="body">
-                    <p className="body">{ description }</p>
+                    <div>
+                    <p className="recipe-description">{ description }</p>
                     <div className="ingredients">
                         <p>Ingredients:</p>
                         <ul>
@@ -37,6 +38,7 @@ class Recipe extends Component {
                                 <li key={ x.id }>{ x.name }</li>
                             )}
                         </ul>
+                    </div>
                     </div>
                     <button>Delete</button>
                 </div>

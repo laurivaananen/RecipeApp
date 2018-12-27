@@ -1,0 +1,10 @@
+.recipe-list {
+    display: grid;
+    grid-template-columns: 1fr minmax(400px, 960px) 1fr;
+    background-color: rgb(255, 255, 255);
+}
+
+.recipe-list > ul {
+    padding: 5rem 1rem;
+    grid-column: 2;
+}

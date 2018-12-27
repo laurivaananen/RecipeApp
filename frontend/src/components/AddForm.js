@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './AddForm.css';
+
 
 class AddForm extends Component {
 
@@ -59,6 +61,12 @@ class AddForm extends Component {
         });
     }
 
+    // handleChange = name => event => {
+    //     this.setState({
+    //         [name]: event.target.value,
+    //     });
+    // };
+
     handleSubmit(event) {
         event.preventDefault();
 
@@ -84,31 +92,43 @@ class AddForm extends Component {
 
     render() {
         return(
-            <div >
+            <div className="recipe-form" >
+                <h1>Recipes</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <div  >
-                        <label for="recipe_title">Title</label>
-                        <input id="recipe_title" type='text' name='title' value={this.state.title} onChange={this.handleChange} />
+                    <div className='input-row' >
+                        <label htmlFor="recipe_title">Title</label>
+                        <input
+                            required='true'
+                            minLength='2'
+                            maxLength='128'
+                            id="recipe_title"
+                            type='text'
+                            name='title'
+                            value={this.state.title} onChange={this.handleChange} />
                     </div>
-                    <div >
-                        <label for="recipe_description">Description</label>
-                        <textarea id="recipe_description" type='text' name='description' value={this.state.description} onChange={this.handleChange} />
+                    <div className='input-row' >
+                        <label htmlFor="recipe_description">Description</label>
+                        <textarea
+                            rows={this.state.description.split("\n").length}
+                            id="recipe_description"
+                            type='text'
+                            name='description'
+                            value={this.state.description} onChange={this.handleChange} />
                     </div>
-                    <div className='row'>
-                        <div className='input-field col s6'>
-                            <select name='category' value={this.state.category} onChange={this.handleChange} >
-                                { this.state.categories.map( ({ name, id }) => (
-                                    <option key={ id } value={ id }>{ name }</option>
-                                ))}
-                            </select>
-                            <label>Category</label>
-                        </div>
+                    <div className='input-row'>
+                        <label htmlFor='recipe_category' >Category</label>
+                        <select id='recipe_category' name='category' value={this.state.category} onChange={this.handleChange} >
+                            { this.state.categories.map( ({ name, id }) => (
+                                <option key={ id } value={ id }>{ name }</option>
+                            ))}
+                        </select>
                     </div>
-                    <br/>
+                        <div className='input-row'>
+                        <label>Ingredients</label>
                         {this.state.ingredients_write.map((ingredient, idx) => (
                                 <input
                                     type="text"
-                                    placeholder={`ingredient #${idx + 1} name`}
+                                    // placeholder={`ingredient #${idx + 1} name`}
                                     value={ingredient}
                                     onBlur={this.handleRemoval(idx)}
                                     onChange={this.handleIngredientNameChange(idx)}
@@ -120,7 +140,7 @@ class AddForm extends Component {
                                     return (
                                         <div className="ingredient-field" >
                                             {field}
-                                            <button type="button" onClick={this.handleRemoveIngredient(idx)} className="small">-</button>
+                                            <button type="button" onClick={this.handleRemoveIngredient(idx)} className="small">X</button>
                                         </div>
                                     )
                                 } else {
@@ -132,8 +152,10 @@ class AddForm extends Component {
                                 }
                             })
                             }
-                    <br/>
-                    <input type='submit' value='submit'></input>
+                            </div>
+                    <div className='input-row'>
+                        <input type='submit' value='submit'></input>
+                    </div>
                 </form>
             </div>
         );
