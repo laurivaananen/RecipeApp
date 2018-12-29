@@ -24,7 +24,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-  line-height: 1;
+  /* line-height: 1; */
 }
 ol, ul {
 	list-style: none;
@@ -42,12 +42,11 @@ table {
 	border-spacing: 0;
 }
 
-main {
-  /* display: grid;
-  grid-template-columns: 1fr minmax(400px, 960px) 1fr; */
+* {
+	font-family: monospace;
+	color: black;
 }
 
-* {
-  font-family: sans-serif;
-  color: black;
+body {
+	font-family: sans-serif;
 }

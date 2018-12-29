@@ -1,0 +1,21 @@
+header {
+    background-color: white;
+    /* height: 10rem; */
+    background-color: rgb(216, 0, 47);
+}
+
+header > h1 {
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+    font-size: 6rem;
+    text-align: center;
+    color: white;
+}
+
+header > h3 {
+    text-align: center;
+    font-style: italic;
+    font-size: 2rem;
+    color: white;
+    padding-bottom: 1rem;
+}

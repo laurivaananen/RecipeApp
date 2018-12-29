@@ -11,7 +11,7 @@ class Recipe(models.Model):
         return self.title
 
     class Meta:
-        ordering = ('created', )
+        ordering = ('-created', )
 
 
 class Category(models.Model):
@@ -22,7 +22,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        ordering = ('created', )
+        ordering = ('-created', )
 
 
 class Ingredient(models.Model):
@@ -36,5 +36,5 @@ class Ingredient(models.Model):
         return self.name
 
     class Meta:
-        ordering = ('created', )
+        ordering = ('-created', )
 

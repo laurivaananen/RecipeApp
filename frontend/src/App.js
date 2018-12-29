@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
+import './App.css';
 import List from './components/List';
 import AddForm from './components/AddForm';
-import './App.css';
+import Header from './components/Header';
 
 class App extends Component {
 
     render() {
         return (
-            <main>
-                <AddForm />
+            <React.Fragment>
+                <Header />
+                {/* <AddForm /> */}
                 <List/>
-            </main>
-            
+            </React.Fragment>
         );
     }
 }

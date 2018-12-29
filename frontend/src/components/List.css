@@ -1,10 +1,83 @@
-.recipe-list {
+section {
+    /* display: grid;
+    grid-template-columns: 1fr minmax(400px, 960px) 1fr;
+    background-color: rgb(255, 255, 255); */
+}
+
+section > .recipe-search {
+    background-color: lightgoldenrodyellow;
     display: grid;
     grid-template-columns: 1fr minmax(400px, 960px) 1fr;
-    background-color: rgb(255, 255, 255);
+}
+
+section > .recipe-search > form {
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+    grid-column: 2;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: 2.5rem;
+}
+
+form > * {
+    background-color: white;
+    border: 0;
+    border: 1px solid #999;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: monospace;
+    padding: 0;
+    padding: 0 1em;
+    margin: 0;
+    border-radius: 4px;
+}
+
+form > .multiselect {
+    display: block;
+    text-align: center;
+    width: 12rem;
+    padding: 0;
+}
+
+form > .multiselect > .options {
+    position: absolute;
+    width: 12rem;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.options li {
+    display: block;
+    line-height: 2.5rem;
+    padding-left: 1rem;
+    text-align: start;
+}
+
+.options li:hover {
+    background-color: rgb(228, 241, 255);
+}
+
+.options li.selected {
+    background-color: rgb(34, 99, 173);
+    color: rgb(255, 221, 29);
+}
+
+.options li.selected:hover {
+    background-color: rgb(24, 79, 141);
+}
+
+
+
+.recipe-list {
+    padding: 5rem 1rem;
+    display: grid;
+    grid-template-columns: 1fr minmax(400px, 960px) 1fr;
 }
 
 .recipe-list > ul {
-    padding: 5rem 1rem;
     grid-column: 2;
 }

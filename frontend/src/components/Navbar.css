@@ -1,0 +1,51 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    background-color: rgb(216, 0, 47);
+    overflow: hidden;
+    color: white;
+    z-index: 3;
+}
+
+nav > div {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+
+nav > div > a {
+    margin: 0;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    line-height: 2.5rem;
+    padding: 0 2rem;
+    width: 4rem;
+}
+
+nav > div > a:hover {
+    background-color: rgb(223, 39, 79);
+}
+
+nav > .dropdown > .dropdown-content {
+    position: absolute;
+    background-color: rgb(216, 0, 47);
+    width: 8rem;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content > a {
+    display: block;
+    line-height: 2.5rem;
+    padding-left: 1rem;
+}
+
+.dropdown-content > a:hover {
+    background-color: rgb(223, 39, 79);
+}

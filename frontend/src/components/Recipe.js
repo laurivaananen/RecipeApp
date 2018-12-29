@@ -17,7 +17,6 @@ class Recipe extends Component {
         });
     };
 
-
     render() {
         const { id, title, description, category, ingredients } = this.props.data;
         const { expanded } = this.state;
