@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './Navbar.css';
 
 class Navbar extends Component {
@@ -7,6 +9,7 @@ class Navbar extends Component {
 
         this.state = {
             showDropdown: false,
+            user: {},
         }
 
         this.showDropdown = this.showDropdown.bind(this);
@@ -29,12 +32,31 @@ class Navbar extends Component {
         }
     }
 
+    userData() {
+        const userToken = localStorage.getItem("token");
+        const authorizationToken = "Token " + userToken;
+
+        if (userToken) {
+            axios.get(`http://localhost:8000/user/`, {headers: {"authorization": authorizationToken}})
+                .then(res => {
+                    const data = res.data;
+                    this.setState({
+                        user: data,
+                    });
+                });
+        }
+    }
+
+    componentDidMount() {
+        // this.userData();
+    }
+
 
     render() {
         return (
             <nav>
                 <div>
-                    <a href="#">Home</a>
+                    <Link to="/">Home</Link>
                 </div>
                 <div className="dropdown">
                     <a href="#" onClick={this.showDropdown} >Menu</a>
@@ -43,13 +65,14 @@ class Navbar extends Component {
                         ref={(element) => {
                             this.dropdownContent = element;
                         }}>
-                        <a href="#">List</a>
-                        <a href="#">New</a>
-                        <a href="#">Login</a>
-                        <a href="#">Login</a>
-                        <a href="#">Login</a>
+                        <Link to="/recipes/">List</Link>
+                        <Link to="/add/">Add</Link>
+                        <Link to="/login/">Login</Link>
                     </div>
                     : null}
+                </div>
+                <div>
+                    {this.state.user.username ? <Link to="/user/">{this.state.user.username}</Link> : null}
                 </div>
             </nav>
         );

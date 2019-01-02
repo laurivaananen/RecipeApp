@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import axios from 'axios';
 import './AddForm.css';
+import {recipes} from "../actions";
 
 
 class AddForm extends Component {
@@ -61,20 +63,10 @@ class AddForm extends Component {
         });
     }
 
-    // handleChange = name => event => {
-    //     this.setState({
-    //         [name]: event.target.value,
-    //     });
-    // };
-
     handleSubmit(event) {
         event.preventDefault();
 
-        const { title, description, category } = this.state;
-
-        const ingredients_write = this.state.ingredients_write.slice(0, this.state.ingredients_write.length - 1);
-
-        axios.post('http://localhost:8000/recipes/', { title, category, description, ingredients_write });
+        this.props.addRecipe(this.state);
     }
 
     componentDidMount() {
@@ -93,7 +85,6 @@ class AddForm extends Component {
     render() {
         return(
             <div className="recipe-form" >
-                <h1>Recipes</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className='input-row' >
                         <label htmlFor="recipe_title">Title</label>
@@ -162,4 +153,19 @@ class AddForm extends Component {
     };
 }
 
-export default AddForm;
+
+const mapStateToProps = state => {
+    return state
+}
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addRecipe: (state) => {
+            dispatch(recipes.addRecipe(state));
+        },
+    }
+}
+  
+  
+export default connect(mapStateToProps, mapDispatchToProps)(AddForm);

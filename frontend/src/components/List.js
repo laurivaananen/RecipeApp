@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import axios from 'axios';
 import Recipe from './Recipe';
 import './List.css';
+import {recipes} from "../actions";
 
 class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            recipes: [],
-            next: '',
+            // recipes: [],
+            // next: '',
             title: '',
-            categories: [],
+            // categories: [],
         }
         this.loadMore = this.loadMore.bind(this);
         this.searchRecipes = this.searchRecipes.bind(this);
@@ -21,18 +23,7 @@ class List extends Component {
 
     loadMore(event) {
         event.preventDefault();
-
-        if (this.state.next) {
-            axios.get(this.state.next)
-                .then(res => {
-                    const data = res.data;
-                    const newData = [...this.state.recipes.slice(), ...data.results];
-                    this.setState({
-                        recipes: newData,
-                        next: data.next
-                    });
-                });
-        }
+        this.props.loadMoreRecipes(this.props.next);
     }
 
     handleChange(event) {
@@ -47,20 +38,11 @@ class List extends Component {
 
     searchRecipes(event) {
         event.preventDefault();
-
-        axios.get('http://localhost:8000/recipes/', {
-            params: {
-                title: this.state.title,
-                categories: this.state.categories.filter(x => x.selected).map(x => x.id),
-            }
-        })
-            .then(res => {
-                const data = res.data;
-                this.setState({
-                    recipes: data.results,
-                    next: data.next,
-                });
-            })
+        let params = {
+            title: this.state.title,
+            categories: this.props.categories.filter(x => x.selected).map(x => x.id),
+        }
+        this.props.fetchRecipes('http://localhost:8000/recipes/', params=params);
     }
 
     showDropdown(event) {
@@ -81,7 +63,7 @@ class List extends Component {
 
     selectCategory = (category_id) => () => {
         this.setState({
-            categories: this.state.categories.map(x => {
+            categories: this.props.categories.map(x => {
                 const category = x;
                 if (category.id === category_id) {
                     return Object.assign(category, {selected: !category.selected})
@@ -92,22 +74,8 @@ class List extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:8000/recipes/`)
-            .then(res => {
-                const data = res.data;
-                this.setState({
-                    recipes: data.results,
-                    next: data.next,
-                });
-            });
-
-        axios.get('http://localhost:8000/categories/')
-            .then(res => {
-                const categories = res.data.map(x => Object.assign(x, {selected: false}));
-                this.setState({
-                    categories: categories
-                });
-            });
+        this.props.fetchRecipes('http://localhost:8000/recipes/');
+        this.props.fetchCategories();
     }
 
     render() {
@@ -117,7 +85,7 @@ class List extends Component {
                     <form>
                         <input onChange={this.handleChange} name="title" type="text"/>
                         <div className="multiselect">
-                            <p onClick={this.showDropdown} >Categories({this.state.categories.filter(x => x.selected)
+                            <p onClick={this.showDropdown} >Categories({this.props.categories.filter(x => x.selected)
                                 .map(x => 1)
                                 .reduce((x, y) => x + y, 0)})</p>
                             {this.state.showDropdown ?
@@ -127,7 +95,7 @@ class List extends Component {
                                     this.dropdownContent = element;
                                 }}
                             >
-                                {this.state.categories.sort((x, y) => x.name > y.name).map(category => (
+                                {this.props.categories.sort((x, y) => x.name > y.name).map(category => (
                                     <li
                                         key={category.id}
                                         onClick={this.selectCategory(category.id)}
@@ -141,10 +109,10 @@ class List extends Component {
                 </div>
                 <div className="recipe-list">
                     <ul>
-                        {this.state.recipes.map(recipe =>
+                        {this.props.recipes.map(recipe =>
                             <Recipe key={ recipe.id } data={recipe} />
                         )}
-                        {this.state.next ?
+                        {this.props.next ?
                         <button className="load-recipes" onClick={this.loadMore}>Load More</button>
                         : null}
                     </ul>
@@ -155,4 +123,34 @@ class List extends Component {
     }
 }
 
-export default List;
+
+const mapStateToProps = state => {
+    return state.recipes
+}
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addRecipe: (text) => {
+            dispatch(recipes.addRecipe(text));
+        },
+        updateRecipe: (id, text) => {
+            dispatch(recipes.addRecipe(id, text));
+        },
+        deleteRecipe: (id) => {
+            dispatch(recipes.deleteRecipe(id));
+        },
+        fetchRecipes: (url, params) => {
+            dispatch(recipes.fetchRecipes(url, params));
+        },
+        fetchCategories: () => {
+            dispatch(recipes.fetchCategories());
+        },
+        loadMoreRecipes: (url) => {
+            dispatch(recipes.loadMoreRecipes(url));
+        },
+    }
+}
+  
+  
+export default connect(mapStateToProps, mapDispatchToProps)(List);

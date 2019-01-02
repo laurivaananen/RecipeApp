@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Recipe(models.Model):
@@ -6,6 +7,7 @@ class Recipe(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(blank=True, default='')
     category = models.ForeignKey('Category', related_name='recipes', on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='recipes', on_delete=models.CASCADE, null=True, default=None)
 
     def __str__(self):
         return self.title

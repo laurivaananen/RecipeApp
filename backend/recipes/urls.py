@@ -10,6 +10,9 @@ router.register('ingredients', views.IngredientViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('register/', views.CreateUser.as_view()),
+    path('login/', views.LoginUser.as_view()),
+    path('user/', views.GetUser.as_view()),
     # path('recipes/', views.RecipeList.as_view()),
     # path('recipes/<int:pk>/', views.RecipeDetail.as_view()),
     # path('categories/', views.CategoryList.as_view()),
