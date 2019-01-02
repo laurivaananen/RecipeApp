@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from recipes import views
 from rest_framework import routers
+from knox.views import LogoutView
 
 router = routers.DefaultRouter()
 router.register('recipes', views.RecipeViewSet)
@@ -13,6 +14,7 @@ urlpatterns = [
     path('register/', views.CreateUser.as_view()),
     path('login/', views.LoginUser.as_view()),
     path('user/', views.GetUser.as_view()),
+    path('logout/', LogoutView.as_view(), name='knox_logout'),
     # path('recipes/', views.RecipeList.as_view()),
     # path('recipes/<int:pk>/', views.RecipeDetail.as_view()),
     # path('categories/', views.CategoryList.as_view()),

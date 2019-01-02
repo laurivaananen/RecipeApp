@@ -5,48 +5,47 @@ export const addRecipe = state => {
 
     ingredients_write = ingredients_write.slice(0, ingredients_write.length - 1);
 
-    // return dispatch => {
-    //     return axios.post('http://localhost:8000/recipes/', { title, category, description, ingredients_write })
-    //         .then(res => res.data)
-    //         .then(recipe => {
-    //             return dispatch({
-    //                 type: 'ADD_RECIPE',
-    //                 recipe
-    //             })
-    //         });
-    //     }
-
-
     return (dispatch, getState) => {
         let headers = {"Content-Type": "application/json"};
-        let {token} = getState().auth;
+
+        let {token} = getState().auth
+
+        let { title, description, category, ingredients_write } = state;
     
+        ingredients_write = ingredients_write.filter(x => x !== '');
+
+        console.log(ingredients_write);
+
         if (token) {
-          headers["Authorization"] = `Token ${token}`;
+            headers["Authorization"] = `Token ${token}`;
         }
-    
-        let body = JSON.stringify({title, description, category, ingredients_write});
-        console.log(body);
-        return fetch("http://locahost:8000/recipes/", {headers, method: "POST", body})
-          .then(res => {
+
+        console.log(headers);
+
+        return axios({
+            method: 'post',
+            url: 'http://localhost:8000/recipes/',
+            headers,
+            data: { title, description, category, ingredients_write },
+        }).then(res => {
+            console.log(res);
             if (res.status < 500) {
-              return res.json().then(data => {
-                return {status: res.status, data};
-              })
+                return (res => {
+                    return {status: res.status, res};
+                })
             } else {
-              console.log("Server Error!");
-              throw res;
+                console.log("Server Error!");
+                throw res;
             }
-          })
-          .then(res => {
+        }).then(res => {
             if (res.status === 201) {
-              return dispatch({type: 'ADD_RECIPE', note: res.data});
+                return dispatch({type: 'ADD_RECIPE', recipe: res.data});
             } else if (res.status === 401 || res.status === 403) {
-              dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
-              throw res.data;
+                dispatch({type: 'AUTHENTICATION_ERROR', data: res.data});
+                throw res.data;
             }
-          })
-      }
+        })
+    }
 }
   
 export const updateRecipe = (id, text) => {

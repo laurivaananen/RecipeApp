@@ -111,7 +111,6 @@ class RecipeDetailSerializer(serializers.ModelSerializer):
             serializer = IngredientSerializer(data=data)
             if serializer.is_valid():
                 vdata = serializer.validated_data
-                print(vdata)
                 ingredient, created = Ingredient.objects.get_or_create(**vdata)
                 if created:
                     ingredient.save()
@@ -128,10 +127,7 @@ class IngredientSerializer(serializers.ModelSerializer):
     recipe = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all())
 
     def validate_name(self, value):
-        print("PLEASE WORK")
-        print(value)
         if value == '':
-            print("raise error")
             raise serializers.ValidationError("Can't add empty string")
         return value
 

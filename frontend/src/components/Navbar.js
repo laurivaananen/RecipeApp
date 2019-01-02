@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {auth} from "../actions";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './Navbar.css';
 
@@ -47,10 +49,6 @@ class Navbar extends Component {
         }
     }
 
-    componentDidMount() {
-        // this.userData();
-    }
-
 
     render() {
         return (
@@ -68,15 +66,29 @@ class Navbar extends Component {
                         <Link to="/recipes/">List</Link>
                         <Link to="/add/">Add</Link>
                         <Link to="/login/">Login</Link>
+                        <Link to="/register/">Register</Link>
                     </div>
                     : null}
                 </div>
                 <div>
-                    {this.state.user.username ? <Link to="/user/">{this.state.user.username}</Link> : null}
+                    {/* {this.props.user.username} (<a onClick={this.props.logout}>logout</a>) */}
+                    {this.props.user && (<a onClick={this.props.logout}>{this.props.user.username}</a>)}
                 </div>
             </nav>
         );
     }
 }
 
-export default Navbar;
+const mapStateToProps = state => {
+    return {
+      user: state.auth.user,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        logout: () => dispatch(auth.logout()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
