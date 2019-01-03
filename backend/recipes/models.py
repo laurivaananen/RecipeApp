@@ -32,8 +32,6 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=128)
     recipe = models.ForeignKey('Recipe', related_name='ingredients', on_delete=models.CASCADE, blank=True)
 
-    
-
     def __str__(self):
         return self.name
 

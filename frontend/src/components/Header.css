@@ -18,3 +18,9 @@ header > h3 {
     color: white;
     padding-bottom: 1em;
 }
+
+@media only screen and (max-width: 959px) {
+    header {
+        display: none;
+    }
+}

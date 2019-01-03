@@ -28,8 +28,10 @@ class Recipe extends Component {
                 </div>
                 
                 <div className="body">
-                    <div>
-                    <p className="recipe-description">{ description }</p>
+                    <div className="top" >
+                        <p className="recipe-description">{ description }</p>
+                        <button>Delete</button>
+                    </div>
                     <div className="ingredients">
                         <p>Ingredients:</p>
                         <ul>
@@ -38,8 +40,6 @@ class Recipe extends Component {
                             )}
                         </ul>
                     </div>
-                    </div>
-                    <button>Delete</button>
                 </div>
             </li>
         );

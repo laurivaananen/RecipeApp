@@ -1,39 +1,38 @@
 nav {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: start;
+    display: grid;
+    grid-template-columns: 1fr minmax(280px, 960px) 1fr;
     background-color: rgb(216, 0, 47);
     overflow: hidden;
     color: white;
-    z-index: 3;
 }
 
-nav > div {
-    height: 100%;
-    box-sizing: border-box;
-}
-
-nav a {
+.nav-item-container > a, .nav-item-container i {
     text-decoration: none;
-    color: white;
-}
-
-nav > div > a {
+    color: inherit;
+    font-size: 1rem;
     margin: 0;
-    text-decoration: none;
-    display: block;
-    text-align: center;
+    padding: 0 1rem;
     line-height: 2.5rem;
-    padding: 0 2rem;
-    width: 4rem;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
 }
 
-nav > div > a:hover {
+nav > div.nav-item-container {
+    grid-column: 2;
+    color: inherit;
+}
+
+nav > div.nav-item-container > a:last-child {
+    float: right;
+}
+
+.nav-item-container > a:hover, .nav-item-container > i:hover {
     background-color: rgb(223, 39, 79);
 }
 
-nav > .dropdown > .dropdown-content {
+div.dropdown-content {
+    color: inherit;
     position: absolute;
     background-color: rgb(216, 0, 47);
     width: 8rem;
@@ -41,6 +40,8 @@ nav > .dropdown > .dropdown-content {
 }
 
 .dropdown-content > a {
+    text-decoration: none;
+    color: inherit;
     display: block;
     line-height: 2.5rem;
     padding-left: 1rem;

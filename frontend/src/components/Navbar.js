@@ -53,28 +53,46 @@ class Navbar extends Component {
     render() {
         return (
             <nav>
-                <div>
-                    <Link to="/">Home</Link>
-                </div>
-                <div className="dropdown">
-                    <a href="#" onClick={this.showDropdown} >Menu</a>
+                <div className="nav-item-container" >
+                    <i onClick={this.showDropdown} className="fas fa-bars"></i>
                     {this.state.showDropdown ?
-                    <div className="dropdown-content"
-                        ref={(element) => {
-                            this.dropdownContent = element;
-                        }}>
-                        <Link to="/recipes/">List</Link>
-                        <Link to="/add/">Add</Link>
-                        <Link to="/login/">Login</Link>
-                        <Link to="/register/">Register</Link>
-                    </div>
+                        <div className="dropdown-content"
+                            ref={(element) => {
+                                this.dropdownContent = element;
+                            }}>
+                            <Link to="/add/">Add</Link>
+                            <Link to="/register/">Register</Link>
+                        </div>
                     : null}
-                </div>
-                <div>
-                    {/* {this.props.user.username} (<a onClick={this.props.logout}>logout</a>) */}
-                    {this.props.user && (<a onClick={this.props.logout}>{this.props.user.username}</a>)}
+                    <Link to="/">Home</Link>
+                    {this.props.user ? <a onClick={this.props.logout}>Logout</a> : <Link to="/login/">Login</Link>}
                 </div>
             </nav>
+            // <nav>
+            //     <div>
+            //         <i class="fas fa-bars"></i>
+            //     </div>
+            //     <div>
+            //         <Link to="/">Home</Link>
+            //     </div>
+            //     <div className="dropdown">
+            //         <a href="#" onClick={this.showDropdown} >Menu</a>
+            //         {this.state.showDropdown ?
+            //         <div className="dropdown-content"
+            //             ref={(element) => {
+            //                 this.dropdownContent = element;
+            //             }}>
+            //             <Link to="/recipes/">List</Link>
+            //             <Link to="/add/">Add</Link>
+            //             <Link to="/login/">Login</Link>
+            //             <Link to="/register/">Register</Link>
+            //         </div>
+            //         : null}
+            //     </div>
+            //     <div>
+            //         {this.props.user && (<a onClick={this.props.logout}>{this.props.user.username}</a>)}
+            //     </div>
+            // </nav>
         );
     }
 }

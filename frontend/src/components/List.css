@@ -5,49 +5,60 @@ section {
 }
 
 section > .recipe-search {
-    background-color: lightgoldenrodyellow;
+    background-color: rgb(212, 212, 212);
     display: grid;
-    grid-template-columns: 1fr minmax(400px, 960px) 1fr;
+    grid-template-columns: 1fr minmax(280px, 960px) 1fr;
 }
 
-section > .recipe-search > form {
-    padding-top: 4rem;
-    padding-bottom: 1rem;
+section > .recipe-search > form.recipe-sort {
+    padding: 1rem;
     grid-column: 2;
 }
 
-form {
+form.recipe-sort {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     line-height: 2.5rem;
 }
 
-form > * {
+form.recipe-sort > * {
     background-color: white;
     border: 0;
-    border: 1px solid #999;
     font-size: 1rem;
     font-weight: 400;
-    font-family: monospace;
+    line-height: inherit;
     padding: 0;
-    padding: 0 1em;
+    padding: 0 1rem;
     margin: 0;
     border-radius: 4px;
+    overflow: hidden;
 }
 
-form > .multiselect {
+.recipe-sort > button {
+    border: 1px solid rgb(68, 68, 68);
+    background-color: rgb(88, 221, 111);
+    cursor: pointer;
+}
+
+form.recipe-sort > .multiselect {
     display: block;
     text-align: center;
     width: 12rem;
     padding: 0;
 }
 
-form > .multiselect > .options {
+form.recipe-sort > .multiselect > .options {
     position: absolute;
     width: 12rem;
     background-color: white;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.recipe-sort > input[type=text] {
+    border-radius: 1.25rem;
+    border: 0;
+    width: 35%;
 }
 
 .options li {
@@ -70,14 +81,32 @@ form > .multiselect > .options {
     background-color: rgb(24, 79, 141);
 }
 
-
-
 .recipe-list {
-    padding: 5rem 1rem;
     display: grid;
-    grid-template-columns: 1fr minmax(400px, 960px) 1fr;
+    grid-template-columns: 1fr minmax(280px, 960px) 1fr;
 }
 
 .recipe-list > ul {
     grid-column: 2;
+    padding: 1rem;
+}
+
+
+@media only screen and (max-width: 600px) {
+    form.recipe-sort {
+        flex-direction: column;
+    }
+
+    form.recipe-sort > * {
+        margin-top: 1rem;
+        width: auto;
+    }
+
+    form.recipe-sort > input[type=text] {
+        width: auto;
+    }
+
+    form.recipe-sort > .multiselect {
+        width: auto;
+    }
 }

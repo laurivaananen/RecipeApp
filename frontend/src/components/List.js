@@ -78,16 +78,22 @@ class List extends Component {
         this.props.fetchCategories();
     }
 
+    countCategories = () => {
+        return this.props.categories.filter(x => x.selected)
+            .map(x => 1)
+            .reduce((x, y) => x + y, 0);
+    }
+
     render() {
         return (
             <section>
                 <div className="recipe-search" >
-                    <form>
-                        <input onChange={this.handleChange} name="title" type="text"/>
+                    <form className="recipe-sort" >
+                        <input placeholder="Search..." onChange={this.handleChange} name="title" type="text"/>
                         <div className="multiselect">
-                            <p onClick={this.showDropdown} >Categories({this.props.categories.filter(x => x.selected)
-                                .map(x => 1)
-                                .reduce((x, y) => x + y, 0)})</p>
+                            <p onClick={this.showDropdown} >Categories {this.countCategories() > 0 && `(${this.countCategories()}) `}
+                            <i class="fas fa-angle-down"></i>
+                            </p>
                             {this.state.showDropdown ?
                             <ul
                                 className="options"

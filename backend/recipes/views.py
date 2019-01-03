@@ -7,7 +7,6 @@ from rest_framework import pagination
 from rest_framework.response import Response
 
 from knox.models import AuthToken
-# from knox.views import LogoutView
 
 
 class GetUser(generics.RetrieveAPIView):
@@ -29,7 +28,6 @@ class LoginUser(generics.GenericAPIView):
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)
         })
-
 
 
 class CreateUser(generics.GenericAPIView):
@@ -59,6 +57,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeListSerializer
     pagination_class = LoadMorePagination
+
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
     def get_queryset(self):
         queryset = Recipe.objects.all()

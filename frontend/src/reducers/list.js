@@ -32,7 +32,7 @@ export default function recipes(state=initialState, action) {
         return {...state, recipes: [...state.recipes, ...action.recipes.results], next: action.recipes.next}
 
     case 'FETCH_CATEGORIES':
-        return {...state, categories: [...state.categories, ...action.categories]}
+        return {...state, categories: [...action.categories]}
 
     }
 

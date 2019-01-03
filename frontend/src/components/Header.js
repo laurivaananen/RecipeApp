@@ -9,11 +9,13 @@ class Header extends Component {
 
     render() {
         return (
+            <React.Fragment>
+            <Navbar />
             <header>
-                <Navbar />
                 <h1>Delicious Recipes</h1>
                 <h3>The Best Recipes from Asia</h3>
             </header>
+            </React.Fragment>
         );
     }
 }

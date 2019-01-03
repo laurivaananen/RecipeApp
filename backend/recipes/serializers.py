@@ -42,7 +42,6 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
-    # recipes = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Category
@@ -57,8 +56,6 @@ class IngredientListSerializer(serializers.ModelSerializer):
 
 class RecipeListSerializer(serializers.ModelSerializer):
     category = serializers.StringRelatedField()
-    # category = CategoryListSerializer()
-    # ingredients = serializers.StringRelatedField(many=True)
     ingredients = IngredientListSerializer(many=True)
     
     class Meta:

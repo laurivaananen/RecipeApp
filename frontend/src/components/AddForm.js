@@ -131,7 +131,8 @@ class AddForm extends Component {
                                     return (
                                         <div className="ingredient-field" >
                                             {field}
-                                            <button type="button" onClick={this.handleRemoveIngredient(idx)} className="small">X</button>
+                                            <i onClick={this.handleRemoveIngredient(idx)} class="fas fa-times"></i>
+                                            {/* <button type="button" onClick={this.handleRemoveIngredient(idx)} className="small">X</button> */}
                                         </div>
                                     )
                                 } else {
