@@ -38,7 +38,7 @@ class RootContainerComponent extends Component {
     render() {
         let {PrivateRoute} = this;
         return (
-            <BrowserRouter>
+            <BrowserRouter basename="/cooking">
             <div>
                 <Header />
                 <Switch>

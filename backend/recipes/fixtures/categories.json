@@ -1,0 +1,42 @@
+[
+    {
+        "fields": {
+            "created": "2019-01-09T03:39:25.781Z",
+            "name": "China"
+        },
+        "model": "recipes.category",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "created": "2019-01-09T03:39:25.781Z",
+            "name": "Japan"
+        },
+        "model": "recipes.category",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "created": "2019-01-09T03:39:25.781Z",
+            "name": "Thailand"
+        },
+        "model": "recipes.category",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "created": "2019-01-09T03:39:25.781Z",
+            "name": "South-Korea"
+        },
+        "model": "recipes.category",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "created": "2019-01-09T03:39:25.781Z",
+            "name": "Vietnam"
+        },
+        "model": "recipes.category",
+        "pk": 5
+    }
+]

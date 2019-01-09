@@ -28,7 +28,6 @@ class Category(models.Model):
 
 
 class Ingredient(models.Model):
-    created = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=128)
     recipe = models.ForeignKey('Recipe', related_name='ingredients', on_delete=models.CASCADE, blank=True)
 
@@ -36,5 +35,5 @@ class Ingredient(models.Model):
         return self.name
 
     class Meta:
-        ordering = ('-created', )
+        ordering = ('name', )
 
