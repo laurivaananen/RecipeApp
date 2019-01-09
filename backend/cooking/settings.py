@@ -25,7 +25,7 @@ SECRET_KEY = '_wcsj-qza80qf795a)w6)a5j7o$s0%-k2*9!nw0ernyioo%t($'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.laurivaananen.com', 'localhost', '0.0.0.0', '127.0.0.1',]
 
 
 # Application definition
