@@ -42,7 +42,7 @@ class List extends Component {
             title: this.state.title,
             categories: this.props.categories.filter(x => x.selected).map(x => x.id),
         }
-        this.props.fetchRecipes('http://localhost:8000/recipes/', params=params);
+        this.props.fetchRecipes('http://www.laurivaananen.com:8002/recipes/', params=params);
     }
 
     showDropdown(event) {
@@ -74,7 +74,7 @@ class List extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchRecipes('http://localhost:8000/recipes/');
+        this.props.fetchRecipes('http://www.laurivaananen.com:8002/recipes/');
         this.props.fetchCategories();
     }
 

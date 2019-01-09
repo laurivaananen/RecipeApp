@@ -70,7 +70,7 @@ class AddForm extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:8000/categories/`)
+        axios.get(`http://www.laurivaananen.com:8002/categories/`)
             .then(res => {
                 const categories = res.data;
                 const default_category = categories[0].id

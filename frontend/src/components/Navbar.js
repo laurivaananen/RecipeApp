@@ -39,7 +39,7 @@ class Navbar extends Component {
         const authorizationToken = "Token " + userToken;
 
         if (userToken) {
-            axios.get(`http://localhost:8000/user/`, {headers: {"authorization": authorizationToken}})
+            axios.get(`http://www.laurivaananen.com:8002/user/`, {headers: {"authorization": authorizationToken}})
                 .then(res => {
                     const data = res.data;
                     this.setState({

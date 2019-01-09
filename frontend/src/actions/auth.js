@@ -11,7 +11,7 @@ export const loadUser = () => {
         if (token) {
             headers["Authorization"] = `Token ${token}`;
         }
-        return fetch("http://localhost:8000/user/", {headers, })
+        return fetch("http://www.laurivaananen.com:8002/user/", {headers, })
             .then(res => {
                 if (res.status < 500) {
                     return res.json().then(data => {
@@ -39,7 +39,7 @@ export const login = (username, password) => {
         let headers = {"Content-Type": "application/json"};
         let body = JSON.stringify({username, password});
   
-        return fetch("http://localhost:8000/login/", {headers, body, method: "POST"})
+        return fetch("http://www.laurivaananen.com:8002/login/", {headers, body, method: "POST"})
             .then(res => {
                 if (res.status < 500) {
                     return res.json().then(data => {
@@ -70,7 +70,7 @@ export const register = (username, password) => {
         let headers = {"Content-Type": "application/json"};
         let body = JSON.stringify({username, password});
     
-        return fetch("http://localhost:8000/register/", {headers, body, method: "POST"})
+        return fetch("http://www.laurivaananen.com:8002/register/", {headers, body, method: "POST"})
             .then(res => {
                 if (res.status < 500) {
                     return res.json().then(data => {
@@ -100,7 +100,7 @@ export const logout = () => {
     return (dispatch, getState) => {
         let headers = {"Content-Type": "application/json"};
     
-        return fetch("http://localhost:8000/logout/", {headers, body: "", method: "POST"})
+        return fetch("http://www.laurivaananen.com:8002/logout/", {headers, body: "", method: "POST"})
             .then(res => {
                 if (res.status === 204) {
                     return {status: res.status, data: {}};

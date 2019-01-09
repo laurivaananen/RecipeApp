@@ -1,7 +1,3 @@
-from ../frontend/. as bd
-
-COPY --from=bd /app/build /usr/src/app/static
-
 from python:3
 
 WORKDIR /usr/src/app

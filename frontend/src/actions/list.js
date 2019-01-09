@@ -24,7 +24,7 @@ export const addRecipe = state => {
 
         return axios({
             method: 'post',
-            url: 'http://localhost:8000/recipes/',
+            url: 'http://www.laurivaananen.com:8002/recipes/',
             headers,
             data: { title, description, category, ingredients_write },
         }).then(res => {
